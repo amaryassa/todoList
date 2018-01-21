@@ -38,13 +38,28 @@ class TaskApp extends React.Component {
         return this.state.tasks.filter(task => !task.complete)
     }
 
+    renderRoute(){
+      
+        switch (window.location.pathname) {
+            case "/":
+                return <Tasklist tasks={this.getAllTasks()} titre="All Tasks" />
+                
+            case "/completeTasks":
+                return <Tasklist tasks={this.getCompleteTasks()} titre="Complete Tasks" />
+                
+            case "/incompleteTasks":
+                return <Tasklist tasks={this.getIncompleteTasks()} titre="Incomplete Tasks" />
+                
+            default:
+                return <NotFound/>
+                
+        }
+    }
+
     render() {
         return (
             <div>
-                <Tasklist tasks={this.getAllTasks()} titre="All Tasks"/>
-                <Tasklist tasks={this.getCompleteTasks()} titre="Complete Tasks"/>
-                <Tasklist tasks={this.getIncompleteTasks()} titre="Incomplete Tasks"/>
-            
+                {this.renderRoute()}
             </div>
 
         )
@@ -65,6 +80,7 @@ const Task= (props)=>(
     </article>
 
 )
+const NotFound = () =><h1>Page not Found</h1>
 
 render(
     <TaskApp />,
