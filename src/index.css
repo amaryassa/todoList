@@ -1,0 +1,197 @@
+/* ----------------------------
+	Typo
+---------------------------- */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body, .box > *, textarea, input {
+	font-family: 'Roboto', sans-serif;
+	color: #1d1d1d;
+	overflow: hidden;
+}
+
+/* ----------------------------
+	STRUCTURE
+---------------------------- */
+html {
+  box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	font-size: 20px;
+}
+.connexionBox {
+	background-color: #eceff1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+}
+.connexion {
+	max-width: 500px;
+	font-size: 24px;
+}
+.connexion > * {
+	width: 100%;
+}
+.connexion > input {
+	box-sizing: border-box;
+	font-size: 24px;
+	padding: 5px;
+	border: 5px solid #2196F3;
+	border-width: 0 0 5px 0;
+	outline: none;
+}
+.box {
+	margin: auto;
+	display:flex;
+	justify-content: center;
+ 	flex-wrap: wrap;
+ 	align-items: flex-end;
+	width: 100%;
+	max-width: 500px;
+	height: calc(100vh - 100px);
+	padding: 50px 0;
+	/*border: 5px solid purple;*/
+}
+
+.box > * {
+	width: 100%;
+}
+
+/* ----------------------------
+	MESSAGES
+---------------------------- */
+
+.messages {
+	flex: 1 1 100%;
+	/*border: 5px solid red;*/
+	box-sizing: border-box;
+	align-self: flex-end;
+	max-height: calc(100vh - 310px);
+	overflow-y: scroll;
+	-webkit-overflow-scrolling:touch;
+}
+
+.messages::-webkit-scrollbar {
+    width: 0.4em;
+}
+ 
+.messages::-webkit-scrollbar-thumb {
+  background-color: #eceff1;
+}
+
+/* ----------------------------
+	MESSAGE
+---------------------------- */
+
+.message {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.message > * {
+	padding: 5px 10px;
+	max-width: 75%;
+	border-radius: 2px;
+	margin: 10px 0;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+}
+
+.not-user-message {
+	background-color: #eceff1;
+	align-self: flex-start;
+	position: relative;
+}
+
+.not-user-message:after {
+	content: '';
+	position: absolute;
+	top: -7px;
+	left: 10px;
+	width: 0;
+	border-width: 0 10px 7px 0;
+	border-style: solid;
+	border-color: #eceff1 transparent;
+}
+
+.user-message {
+	background-color: #2196F3;
+	color: #fff;
+	align-self: flex-end;
+	position: relative;
+}
+
+.user-message:after {
+	content: '';
+	position: absolute;
+	bottom: -7px;
+	right: 10px;
+	width: 0;
+	border-width: 7px 0 0 10px;
+	border-style: solid;
+	border-color: #2196F3 transparent;
+}
+
+/* ----------------------------
+	FORMULAIRE
+---------------------------- */
+
+.form {
+	align-self: flex-end;
+}
+
+.form > * {
+	width: 100%;
+}
+
+textarea {
+	box-sizing: border-box;
+	height: 120px;
+	border: 5px solid #2196F3;
+	border-width: 0 0 5px 0;
+	background-color: #ECEFF1;
+	outline: none;
+	font-size: 20px;
+	padding: 5px 10px;
+}
+
+.info {
+	text-align: right;
+	padding-right: 5px;
+}
+
+button {
+	font-size: 20px;
+	border: none;
+	color: white;
+	background-color: #2196F3;
+	margin-top: 10px;
+	padding: 10px;
+	cursor: pointer;
+	border-radius: 2px;
+}
+
+button:disabled {
+	background-color: #eceff1;
+	cursor:not-allowed;
+	color: white;
+}
+
+/* ----------------------------
+	NotFound
+---------------------------- */
+
+.notFound {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
+	background: #eceff1;
+}
+
