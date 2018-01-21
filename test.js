@@ -6,3 +6,8 @@ const pair = numbers.filter(function(number) {
 const pair = numbers.filter(number => { number % 2 === 0 })
 
 console.log(pair);
+
+
+
+
+console.log(window.location.hash);

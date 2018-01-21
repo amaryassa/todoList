@@ -2,15 +2,16 @@ import React from 'react';
 import { render } from 'react-dom';
 
 const ROUTES={
-    home: '/',
-    completeTasks: '/completeTasks',
-    incompleteTasks: '/incompleteTasks'
+    home: '#/',
+    completeTasks: '#/completeTasks',
+    incompleteTasks: '#/incompleteTasks'
 
 }
 class TaskApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            currentRoute: ROUTES.home,
             tasks: [
                 {
                     id: 1,
@@ -34,6 +35,13 @@ class TaskApp extends React.Component {
         };
     }
 
+    componentDidMount(){
+        window.location.hash=ROUTES.home;
+        window.onhashchange= (e)=>{
+            this.setState({currentRoute : window.location.hash})
+        }
+    }
+
     getAllTasks() {
        return this.state.tasks
     }
@@ -46,7 +54,7 @@ class TaskApp extends React.Component {
 
     renderRoute(){
       
-        switch (window.location.pathname) {
+        switch (this.state.currentRoute) {
             case ROUTES.home:
                 return <Tasklist tasks={this.getAllTasks()} titre="All Tasks" />
                 
