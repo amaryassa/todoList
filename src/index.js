@@ -1,6 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
 
+const ROUTES={
+    home: '/',
+    completeTasks: '/completeTasks',
+    incompleteTasks: '/incompleteTasks'
+
+}
 class TaskApp extends React.Component {
     constructor(props) {
         super(props);
@@ -41,13 +47,13 @@ class TaskApp extends React.Component {
     renderRoute(){
       
         switch (window.location.pathname) {
-            case "/":
+            case ROUTES.home:
                 return <Tasklist tasks={this.getAllTasks()} titre="All Tasks" />
                 
-            case "/completeTasks":
+            case ROUTES.completeTasks:
                 return <Tasklist tasks={this.getCompleteTasks()} titre="Complete Tasks" />
                 
-            case "/incompleteTasks":
+            case ROUTES.incompleteTasks:
                 return <Tasklist tasks={this.getIncompleteTasks()} titre="Incomplete Tasks" />
                 
             default:
@@ -59,6 +65,11 @@ class TaskApp extends React.Component {
     render() {
         return (
             <div>
+                <ul>
+                    <li><a href={ROUTES.home}>All Tasks</a></li>
+                    <li><a href={ROUTES.completeTasks}>complete Tasks</a></li>
+                    <li><a href={ROUTES.incompleteTasks}>incomplete Tasks</a></li>
+                </ul>
                 {this.renderRoute()}
             </div>
 
