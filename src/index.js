@@ -2,21 +2,10 @@ import React from 'react';
 import { render } from 'react-dom';
 
 class TaskApp extends React.Component {
-    render() {
-        return (
-            <div>
-                <Tasklist/>
-            </div>
-
-        )
-    }
-}
-
-class Tasklist extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
-            tasks : [
+        this.state = {
+            tasks: [
                 {
                     id: 1,
                     description: 'Se lever',
@@ -37,27 +26,38 @@ class Tasklist extends React.Component {
                 }
             ]
         };
-
     }
-    
+
+    getAllTasks() {
+       return this.state.tasks
+    }
+    getCompleteTasks() {
+        return this.state.tasks.filter(task => task.complete)
+    }
+    getIncompleteTasks() {
+        return this.state.tasks.filter(task => !task.complete)
+    }
+
     render() {
-        const incompleteTasks = this.state.tasks.filter(task=>task.complete );
-        const completeTasks = this.state.tasks.filter(task=>!task.complete );
-
         return (
-            
             <div>
-                <h1> All Task</h1>
-                {this.state.tasks.map(task =><Task key={task.id} task={task} />)}
-
-                <h1> incomplete Task</h1>
-                {incompleteTasks.map(task => <Task key={task.id} task={task} />)}
-                <h1> complete Task</h1>
-                {completeTasks.map(task => <Task key={task.id} task={task} />)}
+                <Tasklist tasks={this.getAllTasks()} titre="All Tasks"/>
+                <Tasklist tasks={this.getCompleteTasks()} titre="Complete Tasks"/>
+                <Tasklist tasks={this.getIncompleteTasks()} titre="Incomplete Tasks"/>
+            
             </div>
+
         )
     }
 }
+
+const Tasklist= (props)=>(
+    <div>
+        <h1> {props.titre}</h1>
+        {props.tasks.map(task => <Task key={task.id} task={task} />)}
+    </div>
+    )
+   
 
 const Task= (props)=>(
     <article>
