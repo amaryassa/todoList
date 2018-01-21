@@ -1,5 +1,5 @@
 {
-    "name": "TodoListe",
+    "name": "todoliste",
     "version": "0.1.0",
     "private": true,
     "devDependencies": {
@@ -8,6 +8,7 @@
     "dependencies": {
         "marked": "0.3.6",
         "react": "15.3.2",
+        "react-addons-css-transition-group": "15.4.1",
         "react-dom": "15.3.2",
         "react-router": "4.0.0-alpha.3"
     },
