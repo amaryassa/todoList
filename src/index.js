@@ -33,7 +33,10 @@ class TaskApp extends React.Component {
                 }
             ]
         };
+
+        this.AddTask = this.AddTask.bind(this);
     }
+
 
     componentDidMount(){
         window.location.hash=ROUTES.home;
@@ -69,6 +72,26 @@ class TaskApp extends React.Component {
                 
         }
     }
+    AddTask(e){
+        e.preventDefault();
+
+        this.setState((prevState)=>{
+            const newTask = {
+                id: prevState.tasks.length + 1,
+                description: this.newTaskDescription.value,
+                complete: false
+            }
+
+            this.newTaskDescription.value='';
+            
+            return {
+                tasks: [...prevState.tasks, newTask]
+            }
+
+        })
+
+        
+    }
 
     render() {
         return (
@@ -78,6 +101,11 @@ class TaskApp extends React.Component {
                     <li><a href={ROUTES.completeTasks}>complete Tasks</a></li>
                     <li><a href={ROUTES.incompleteTasks}>incomplete Tasks</a></li>
                 </ul>
+                <form onSubmit={this.AddTask}>
+                    <input type="text" defaultValue="amar" ref={(input) => { this.newTaskDescription = input; }}/> 
+                    <input type="submit"  value="Add Task" /> 
+                </form>
+
                 {this.renderRoute()}
             </div>
 
