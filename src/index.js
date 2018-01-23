@@ -82,7 +82,7 @@ class TaskApp extends React.Component {
                 complete: false
             }
 
-            this.newTaskDescription.value='';
+            this.addTaskForm.reset();
             
             return {
                 tasks: [...prevState.tasks, newTask]
@@ -101,8 +101,8 @@ class TaskApp extends React.Component {
                     <li><a href={ROUTES.completeTasks}>complete Tasks</a></li>
                     <li><a href={ROUTES.incompleteTasks}>incomplete Tasks</a></li>
                 </ul>
-                <form onSubmit={this.AddTask}>
-                    <input type="text" defaultValue="amar" ref={(input) => { this.newTaskDescription = input; }}/> 
+                <form ref={input => this.addTaskForm=input} onSubmit={this.AddTask}>
+                    <input type="text" defaultValue="" ref={(input) => { this.newTaskDescription = input; }}/> 
                     <input type="submit"  value="Add Task" /> 
                 </form>
 
@@ -121,12 +121,16 @@ const Tasklist= (props)=>(
     )
    
 
-const Task= (props)=>(
-    <article>
-        <h1>#{props.task.id} - {props.task.description} {props.task.complete ? '✔' : '❌'}</h1>
-    </article>
+const Task= (props)=>{
+  
+    const espaceReserve = props.task.complete
+        ? <strike>#{props.task.id} - {props.task.description} {props.task.complete} '✔' </strike>
+        : <span>  #{props.task.id} - {props.task.description} {props.task.incomplete}</span>;
+    
+    return (<article><h1>{espaceReserve}</h1></article>);
 
-)
+}
+
 const NotFound = () =><h1>Page not Found</h1>
 
 render(
