@@ -10,4 +10,4 @@ console.log(pair);
 
 
 
-console.log(window.location.hash);
+console.log();

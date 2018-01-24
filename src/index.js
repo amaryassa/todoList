@@ -11,6 +11,7 @@ class TaskApp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            amar:[],
             currentRoute: ROUTES.home,
             tasks: [
                 {
@@ -39,10 +40,39 @@ class TaskApp extends React.Component {
 
 
     componentDidMount(){
+        console.log("componentDidMount");
         window.location.hash=ROUTES.home;
         window.onhashchange= (e)=>{
             this.setState({currentRoute : window.location.hash})
         }
+    }
+    componentWillMount() {
+        console.log("componentWillMount");
+        fetch("http://localhost:8080/etudiant/1")
+                .then(res => res.json())
+                .then(
+                (result) => {
+                    this.setState({
+                        amar: result
+                    });
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+                )
+        
+
+
+
+    }
+    componentWillUpdate(){
+        console.log("componentWillUpdate()");
     }
 
     getAllTasks() {
