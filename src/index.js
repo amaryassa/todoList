@@ -46,34 +46,34 @@ class TaskApp extends React.Component {
             this.setState({currentRoute : window.location.hash})
         }
     }
-    componentWillMount() {
-        console.log("componentWillMount");
-        fetch("http://localhost:8080/etudiant/1")
-                .then(res => res.json())
-                .then(
-                (result) => {
-                    this.setState({
-                        amar: result
-                    });
-                },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-                )
+    // componentWillMount() {
+    //     console.log("componentWillMount");
+    //     fetch("http://localhost:8080/etudiant/1")
+    //             .then(res => res.json())
+    //             .then(
+    //             (result) => {
+    //                 this.setState({
+    //                     amar: result
+    //                 });
+    //             },
+    //             // Note: it's important to handle errors here
+    //             // instead of a catch() block so that we don't swallow
+    //             // exceptions from actual bugs in components.
+    //             (error) => {
+    //                 this.setState({
+    //                     isLoaded: true,
+    //                     error
+    //                 });
+    //             }
+    //             )
         
 
 
 
-    }
-    componentWillUpdate(){
-        console.log("componentWillUpdate()");
-    }
+    // }
+    // componentWillUpdate(){
+    //     console.log("componentWillUpdate()");
+    // }
 
     getAllTasks() {
        return this.state.tasks
@@ -89,13 +89,13 @@ class TaskApp extends React.Component {
       
         switch (this.state.currentRoute) {
             case ROUTES.home:
-                return <Tasklist tasks={this.getAllTasks()} titre="All Tasks" />
+                return <Tasklist DeleteTask={this.DeleteTask} tasks={this.getAllTasks()} titre="All Tasks" />
                 
             case ROUTES.completeTasks:
                 return <Tasklist tasks={this.getCompleteTasks()} titre="Complete Tasks" />
                 
             case ROUTES.incompleteTasks:
-                return <Tasklist tasks={this.getIncompleteTasks()} titre="Incomplete Tasks" />
+                return <Tasklist DeleteTask={this.DeleteTask} tasks={this.getIncompleteTasks()} titre="Incomplete Tasks" />
                 
             default:
                 return <NotFound/>
@@ -106,14 +106,15 @@ class TaskApp extends React.Component {
         e.preventDefault();
 
         this.setState((prevState)=>{
+
+            const lengthTasks = prevState.tasks.length -1 ;
             const newTask = {
-                id: prevState.tasks.length + 1,
+                id: prevState.tasks[lengthTasks].id + 1,
                 description: this.newTaskDescription.value,
                 complete: false
             }
 
             this.addTaskForm.reset();
-            
             return {
                 tasks: [...prevState.tasks, newTask]
             }
@@ -122,7 +123,17 @@ class TaskApp extends React.Component {
 
         
     }
-
+    DeleteTask = (key) => {
+        this.setState((prevState) => {
+            const NewTaskLists = prevState.tasks.filter(task =>{
+            return task.id !== key
+            });
+            return {
+                tasks: [...NewTaskLists]
+            }
+        })
+    }
+        
     render() {
         return (
             <div>
@@ -142,24 +153,47 @@ class TaskApp extends React.Component {
         )
     }
 }
-
 const Tasklist= (props)=>(
     <div>
-        <h1> {props.titre}</h1>
-        {props.tasks.map(task => <Task key={task.id} task={task} />)}
+        <h1> {props.titre} ({props.tasks.length})</h1>
+        {props.tasks.map(task => <Task DeleteTask={props.DeleteTask} key={task.id} task={task} />)}
     </div>
     )
    
 
-const Task= (props)=>{
+// const Task= (props)=>{
   
-    const espaceReserve = props.task.complete
-        ? <strike>#{props.task.id} - {props.task.description} {props.task.complete} '✔' </strike>
-        : <span>  #{props.task.id} - {props.task.description} {props.task.incomplete}</span>;
+//     const espaceReserve = props.task.complete
+//         ? <strike> #{props.task.id} - {props.task.description} {props.task.complete} '✔' </strike>
+//         : <span>  #{props.task.id} - {props.task.description} {props.task.incomplete}    
+//         </span>;
     
-    return (<article><h1>{espaceReserve}</h1></article>);
+//     return (<article><h1>{espaceReserve}</h1></article>);
 
+// }
+
+class Task extends React.Component {
+     delete =(event,key) =>{
+         this.props.DeleteTask(key)
+     }
+
+    render() {
+        const espaceReserve = this.props.task.complete
+        ?  <span>#{this.props.task.id} - {this.props.task.description} {this.props.task.complete} '✔'</span>
+        : <span>  #{this.props.task.id} - {this.props.task.description} {this.props.task.incomplete}   
+                <span onClick={e => this.delete(e, this.props.task.id)} > '❌'</span> 
+        </span>;
+        return (
+
+            <article><h1>{espaceReserve}</h1></article>
+        )
+    }
 }
+
+
+
+
+
 
 const NotFound = () =><h1>Page not Found</h1>
 
