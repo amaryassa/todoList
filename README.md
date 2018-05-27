@@ -2,7 +2,7 @@
 # todoList
 Apprentissage React avec la formation de  Teacher du Net sur youtube 
 
-[Lien Formation youtube](lien de la formation https://www.youtube.com/watch?v=5ZG0cNo6lgE&list=PLlxQJeQRaKDR94iHzoKL4D1hjVySbbDSd
+[Lien de la Formation sur youtube](https://www.youtube.com/watch?v=5ZG0cNo6lgE&list=PLlxQJeQRaKDR94iHzoKL4D1hjVySbbDSd
 )
 ### Prerequisites
  * **nodeJS**
